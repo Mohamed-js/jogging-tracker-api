@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  resources :jogging_times
-  resources :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  namespace :api do
+    namespace :v1 do
+      resources :users
+      resources :sessions, only: %i[create]
+      resources :registrations, only: %i[create]
+      resources :jogging_times
+      resources :reports, only: %i[index]
+    end
+  end
 end
