@@ -10,4 +10,12 @@ class User < ApplicationRecord
         payload = { user_id: id }
         AuthService.encode_token(payload)
     end
+
+    def mark_logged_in
+        update_attribute(:logged_in, true)
+    end
+
+    def mark_logged_out
+        update_attribute(:logged_in, false)
+    end
 end
