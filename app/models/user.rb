@@ -3,10 +3,11 @@ class User < ApplicationRecord
     has_many :jogging_times
 
     enum role: { regular_user: 0, user_manager: 1, admin: 2 }
-    validates :email, :digest_password, presence: true
+    validates :email, presence: true, uniqueness: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+    validates :password, presence: true, length: { minimum: 6 }
 
     def generate_token
         payload = { user_id: id }
-        AuthenticationService.encode_token(payload)
+        AuthService.encode_token(payload)
     end
 end
