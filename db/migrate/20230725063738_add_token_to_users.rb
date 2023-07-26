@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddTokenToUsers < ActiveRecord::Migration[6.1]
   def change
     add_column :users, :logged_in, :boolean, default: false

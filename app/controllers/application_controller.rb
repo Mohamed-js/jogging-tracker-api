@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::API
   def current_user
     authoriztion_header = request.headers['Authorization']

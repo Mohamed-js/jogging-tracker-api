@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuthService
   def self.encode_token(payload)
     JWT.encode(payload, Rails.application.secrets.secret_key_base)
