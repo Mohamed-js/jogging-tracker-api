@@ -1,25 +1,19 @@
 class Api::V1::JoggingTimesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_jogging_time, only: [:show, :update, :destroy]
   load_and_authorize_resource
+  before_action :set_jogging_times, only: [:index]
+  before_action :set_jogging_time, only: [:show, :update, :destroy]
 
-  # GET /jogging_times
   def index
     if params[:from_date] && params[:to_date]
-      @jogging_times = current_user.jogging_times.where(date: params[:from_date]..params[:to_date])
-    else
-      @jogging_times = current_user.jogging_times
+      @jogging_times = @jogging_times.where(date: params[:from_date]..params[:to_date])
     end
-
     render json: @jogging_times
   end
 
-  # GET /jogging_times/1
   def show
     render json: @jogging_time
   end
 
-  # POST /jogging_times
   def create
     @jogging_time = current_user.jogging_times.build(jogging_time_params)
 
@@ -49,7 +43,12 @@ class Api::V1::JoggingTimesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_jogging_time
-      @jogging_time = current_user.jogging_times.find(params[:id])
+      @jogging_time = JoggingTime.find(params[:id])
+    end
+
+    def set_jogging_times
+      @jogging_times = JoggingTime.all if current_user.admin?
+      @jogging_times = current_user.jogging_times if current_user.regular_user?
     end
 
     # Only allow a list of trusted parameters through.
