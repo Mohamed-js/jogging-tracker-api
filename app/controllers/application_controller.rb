@@ -18,4 +18,7 @@ class ApplicationController < ActionController::API
   rescue_from CanCan::AccessDenied do |_exception|
     render nothing: true, status: :unauthorized
   end
+  rescue_from ActiveRecord::RecordNotFound do |_exception|
+    render nothing: true, status: :not_found
+  end
 end

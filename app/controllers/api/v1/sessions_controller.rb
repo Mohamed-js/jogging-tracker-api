@@ -17,7 +17,7 @@ module Api
 
       def destroy
         @current_user.mark_logged_out
-        render json: { message: 'logged out' }
+        render json: :no_content
       end
 
       private

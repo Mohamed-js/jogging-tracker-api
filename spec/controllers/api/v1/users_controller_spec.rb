@@ -8,7 +8,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   let(:admin) { User.create!(email: 'admin@gmail.com', password: '123123', role: 'admin') }
 
   # User attrs
-  let(:valid_attributes) { { user: { email: 'atefhamosa@gmail.com', password: '123123' } }  }
+  let(:valid_attributes) { { user: { email: 'atef@gmail.com', password: '123123' } }  }
   let(:invalid_attributes) { { user: { email: 'atefhamosa', password: '12312' } }  }
 
 
@@ -64,7 +64,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         it 'should create a user successfully' do
           post :create, params: valid_attributes
           expect(response).to have_http_status(:success)
-          expect(JSON.parse(response.body)['email']).to eq('atefhamosa@gmail.com')
+          expect(JSON.parse(response.body)['email']).to eq('atef@gmail.com')
           expect(JSON.parse(response.body)['role']).to eq('regular_user')
         end
      
