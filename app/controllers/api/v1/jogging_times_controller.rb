@@ -41,7 +41,7 @@ module Api
       def destroy
         @jogging_time.destroy
 
-        render json: :deleted
+        head :no_content
       end
 
       private

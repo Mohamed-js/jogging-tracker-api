@@ -14,4 +14,8 @@ class ApplicationController < ActionController::API
 
     user
   end
+
+  rescue_from CanCan::AccessDenied do |_exception|
+    render nothing: true, status: :unauthorized
+  end
 end
